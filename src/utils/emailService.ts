@@ -42,15 +42,3 @@ export const sendEmail = async (emailData: { recipient: any; subject: any; body:
 
 
 
-//     if (response.ok) {
-//       Alert.alert("Success", result.message);
-//       console.log("✅ Email API Response:", result.message);
-//     } else {
-//       Alert.alert("Error", "Failed to send email.");
-//       console.error("❌ API Error:", result);
-//     }
-//   } catch (error) {
-//     Alert.alert("Error", "Network request failed.");
-//     console.error("❌ Network Error:", error);
-//   }
-// };

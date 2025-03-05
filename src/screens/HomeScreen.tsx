@@ -165,13 +165,10 @@ const HomeScreen = () => {
   }, [drafts]);
   
   const onsearch = (text)=>{
-    // let tempData = drafts.filter((item)=>{
-    //       return item.recipient.toLowerCase().indexOf(text.toLowerCase())> -1
-    // })
-    // setData(tempData)
+ 
     setSearchQuery(text);
     if (text.trim() === '') {
-      setData(drafts); // If search is cleared, show all drafts
+      setData(drafts);
     } else {
       const filteredData = drafts.filter((item) =>
         item.recipient.toLowerCase().includes(text.toLowerCase())

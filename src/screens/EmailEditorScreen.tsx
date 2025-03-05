@@ -12,12 +12,33 @@ const EmailEditorScreen = ({ route, navigation }) => {
   const [subject, setSubject] = useState(draft.subject || "");
   const [body, setBody] = useState(draft.body || "");
   const [attachment, setAttachment] = useState(null);
-
+  
   const handleSaveDraft = () => {
-    const emailDraft = { id: draft.id || Date.now().toString(), recipient, subject, body, status: "Draft" };
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if (!recipient.trim()) {
+      alert("Recipient email is required to save the draft.");
+      return; 
+    }
+  
+    if (!emailRegex.test(recipient)) {
+      alert("Invalid email format. Please enter a valid email.");
+      return; 
+    }
+  
+    const emailDraft = {
+      id: draft.id || Date.now().toString(),
+      recipient,
+      subject,
+      body,
+      status: "Draft",
+    };
+  
     draft.id ? dispatch(updateDraft(emailDraft)) : dispatch(addDraft(emailDraft));
     navigation.goBack();
   };
+  
+  
 
   const handleSendEmail = async () => {
     await sendEmail({ recipient, subject, body });
