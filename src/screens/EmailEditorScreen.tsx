@@ -40,11 +40,11 @@ const EmailEditorScreen = ({ route, navigation }) => {
   
   
 
-  const handleSendEmail = async () => {
-    await sendEmail({ recipient, subject, body });
-    dispatch(updateDraft({ ...draft, status: "Sent" }));
-    navigation.goBack();
-  };
+  // const handleSendEmail = async () => {
+  //   await sendEmail({ recipient, subject, body });
+  //   dispatch(updateDraft({ ...draft, status: "Sent" }));
+  //   navigation.goBack();
+  // };
 
 //   const pickDocument = async () => {
 //     try {
@@ -54,6 +54,24 @@ const EmailEditorScreen = ({ route, navigation }) => {
 //       console.error("Document Picker Error:", err);
 //     }
 //   };
+
+const handleSendEmail = async () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!recipient.trim()) {
+    alert("Recipient email is required.");
+    return;
+  }
+
+  if (!emailRegex.test(recipient)) {
+    alert("Invalid email format. Please enter a valid email.");
+    return; 
+  }
+
+  await sendEmail({ recipient, subject, body });
+  dispatch(updateDraft({ ...draft, status: "Sent" }));
+  navigation.goBack(); 
+};
 
   return (
     <View style={styles.mainContainer}>
